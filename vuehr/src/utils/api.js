@@ -11,6 +11,9 @@ axios.interceptors.response.use(success => {
         Message.error({message:success.data.msg});
         return;
     }
+    if (success.data.msg) {
+        Message.success({message:success.data.msg})
+    }
 
     // 登录成功
     return success.data;
@@ -36,6 +39,9 @@ axios.interceptors.response.use(success => {
 
 /* ########### 封装请求 ########### */
 let base = '';
+
+
+// key-value 形式封装
 // 后端默认不支持 json 登录传参数，只能使用 key-value 形式
 export const postKeyValueRequest = (url, params) => {
     return axios({
@@ -47,7 +53,6 @@ export const postKeyValueRequest = (url, params) => {
             for (let i in data) {
                 ret += encodeURIComponent(i) + '=' + encodeURIComponent(data[i]) + '&';
             }
-            console.log(ret);
             return ret;
         }],
         headers: {
@@ -57,10 +62,38 @@ export const postKeyValueRequest = (url, params) => {
 }
 
 
+// json 形式封装
+export const postRequest = (url, params) => {
+    return axios({
+        method: 'post',
+        url: `${base}${url}`,
+        data: params
+    });
+}
 
+export const putRequest = (url, params) => {
+    return axios({
+        method: 'put',
+        url: `${base}${url}`,
+        data: params
+    });
+}
 
+export const getRequest = (url, params) => {
+    return axios({
+        method: 'get',
+        url: `${base}${url}`,
+        data: params
+    });
+}
 
-
+export const deleteRequest = (url, params) => {
+    return axios({
+        method: 'delete',
+        url: `${base}${url}`,
+        data: params
+    });
+}
 
 
 

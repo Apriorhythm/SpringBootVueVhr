@@ -20,7 +20,6 @@
 
 <script>
 
-import { postKeyValueRequest } from "../utils/api"
 export default {
     name: "Login",
     data() {
@@ -49,8 +48,9 @@ export default {
         submitLogin() {
             this.$refs.loginForm.validate((valid) => {
             if (valid) {
-                postKeyValueRequest('/doLogin', this.loginForm).then(resp => {
-                    alert(JSON.stringify(resp));
+                this.postKeyValueRequest('/doLogin', this.loginForm).then(resp => {
+                    window.sessionStorage.setItem("user",JSON.stringify(resp.obj));
+                    this.$router.replace('/home');
                 });
 
             } else {

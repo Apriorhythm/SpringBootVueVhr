@@ -19,6 +19,8 @@
 </template>
 
 <script>
+
+import { postKeyValueRequest } from "../utils/api"
 export default {
     name: "Login",
     data() {
@@ -47,7 +49,10 @@ export default {
         submitLogin() {
             this.$refs.loginForm.validate((valid) => {
             if (valid) {
-                alert('submit!');
+                postKeyValueRequest('/doLogin', this.loginForm).then(resp => {
+                    alert(JSON.stringify(resp));
+                });
+
             } else {
                 console.log('error submit!!');
                 return false;

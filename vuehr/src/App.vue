@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
-
-    </div>
-    <router-view/>
+      <router-view to="/login">Login</router-view>
   </div>
 </template>
 

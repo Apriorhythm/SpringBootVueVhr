@@ -1,25 +1,9 @@
 package com.apriorhythm.vhr.model;
 
+import java.util.List;
+
 public class Menu {
     private Integer id;
-
-    private String url;
-
-    private String path;
-
-    private String component;
-
-    private String name;
-
-    private String iconcls;
-
-    private Boolean keepalive;
-
-    private Boolean requireauth;
-
-    private Integer parentid;
-
-    private Boolean enabled;
 
     public Integer getId() {
         return id;
@@ -34,7 +18,7 @@ public class Menu {
     }
 
     public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
+        this.url = url;
     }
 
     public String getPath() {
@@ -42,7 +26,7 @@ public class Menu {
     }
 
     public void setPath(String path) {
-        this.path = path == null ? null : path.trim();
+        this.path = path;
     }
 
     public String getComponent() {
@@ -50,7 +34,7 @@ public class Menu {
     }
 
     public void setComponent(String component) {
-        this.component = component == null ? null : component.trim();
+        this.component = component;
     }
 
     public String getName() {
@@ -58,39 +42,31 @@ public class Menu {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
-    public String getIconcls() {
-        return iconcls;
+    public String getIconCls() {
+        return iconCls;
     }
 
-    public void setIconcls(String iconcls) {
-        this.iconcls = iconcls == null ? null : iconcls.trim();
+    public void setIconCls(String iconCls) {
+        this.iconCls = iconCls;
     }
 
-    public Boolean getKeepalive() {
-        return keepalive;
+    public Meta getMeta() {
+        return meta;
     }
 
-    public void setKeepalive(Boolean keepalive) {
-        this.keepalive = keepalive;
+    public void setMeta(Meta meta) {
+        this.meta = meta;
     }
 
-    public Boolean getRequireauth() {
-        return requireauth;
+    public Integer getParentId() {
+        return parentId;
     }
 
-    public void setRequireauth(Boolean requireauth) {
-        this.requireauth = requireauth;
-    }
-
-    public Integer getParentid() {
-        return parentid;
-    }
-
-    public void setParentid(Integer parentid) {
-        this.parentid = parentid;
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 
     public Boolean getEnabled() {
@@ -100,4 +76,32 @@ public class Menu {
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
+
+    public List<Menu> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Menu> children) {
+        this.children = children;
+    }
+
+    private String url;
+
+    private String path;
+
+    private String component;
+
+    private String name;
+
+    private String iconCls;
+
+    private Meta meta;
+
+    private Integer parentId;
+
+    private Boolean enabled;
+
+    private List<Menu> children;
+
+
 }

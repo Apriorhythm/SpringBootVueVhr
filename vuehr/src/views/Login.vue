@@ -3,10 +3,12 @@
         <el-form ref="loginForm" class="loginContainer" :rules="rules" :model="loginForm">
             <h3 class="loginTitle">登录</h3>
             <el-form-item prop="username">
-                <el-input type="text" v-model="loginForm.username" auto-complete="off" placeholder="请输入用户名"></el-input>
+                <el-input type="text" v-model="loginForm.username" auto-complete="off" 
+                    placeholder="请输入用户名"></el-input>
             </el-form-item>
             <el-form-item prop="password">
-                <el-input type="text" v-model="loginForm.password" auto-complete="off" placeholder="请输入密码"></el-input>
+                <el-input type="text" v-model="loginForm.password" auto-complete="off"
+                    placeholder="请输入密码" @keydown.enter.native="submitLogin"></el-input>
             </el-form-item>
 
             <el-checkbox class="loginRemember" v-model="checked"></el-checkbox>

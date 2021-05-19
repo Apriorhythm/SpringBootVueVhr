@@ -2,7 +2,7 @@
   <div>
     <el-container>
       <el-header class="homeHeader">
-        <div class="title">人事</div>
+        <div class="title">人事管理</div>
 
         <el-dropdown class="userInfo" @command="commandHandler">
           <span class="el-dropdown-link">
@@ -12,23 +12,25 @@
           <el-dropdown-menu>
             <el-dropdown-item command="userinfo">个人中心</el-dropdown-item>
             <el-dropdown-item command="setting">设置</el-dropdown-item>
-            <el-dropdown-item command="logout" divided
-              >注销登录</el-dropdown-item
-            >
+            <el-dropdown-item command="logout" divided>注销登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>
       <el-container>
         <el-aside width="200px">
           <!-- 增加 router 字段，el-menu会以 index 作为 path 进行跳转 -->
-          <el-menu router>
+          <el-menu
+            class="left-menu"
+            router
+            unique-opened
+          >
             <el-submenu
-              index="1"
+              :index="indexi"
               v-for="(item, indexi) in submenuList"
               :key="indexi"
             >
               <template slot="title">
-                <i class="el-icon-location"></i>
+                <i :class="item.iconCls" style="margin-right:5px;"></i>
                 <span>{{ item.name }}</span>
               </template>
               <el-menu-item
@@ -42,6 +44,16 @@
         </el-aside>
 
         <el-main>
+
+          <el-breadcrumb separator-class="el-icon-arrow-right" v-if="this.$router.currentRoute.path!='/home'">
+            <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>{{this.$router.currentRoute.name}}</el-breadcrumb-item>
+          </el-breadcrumb>
+
+          <div class="homeWelcome" v-else>
+            欢迎来到人事管理
+          </div>
+
           <router-view />
         </el-main>
       </el-container>
@@ -68,6 +80,7 @@ export default {
           .then(() => {
             this.getRequest("/logout");
             window.sessionStorage.removeItem("user");
+            this.$store.commit('initRoutes', []);
             this.$router.replace("/");
           })
           .catch(() => {
@@ -82,7 +95,7 @@ export default {
   computed: {
     submenuList: function() {
       let ret = {};
-      const origin = this.$router.options.routes;
+      const origin = this.$store.state.routes;
       for (let key in origin) {
         if (origin.hasOwnProperty(key) && !origin[key].hidden) {
           console.log(origin[key].hidden);
@@ -91,8 +104,12 @@ export default {
       }
 
       return ret;
-    },
+    }
   },
+  mounted: function() {
+    // 浏览器直接访问 window.Vue.$XXX
+    // window.Vue = this;
+  }
 };
 </script>
 
@@ -121,8 +138,20 @@ export default {
   }
 }
 
+.left-menu {
+  border: none;
+}
+
 .homeHeader .title {
   font-size: 30px;
   color: white;
 }
+
+.homeWelcome {
+  text-align: center;
+  font-size: 30px;
+  color: #409eff;
+  padding-top: 50px;
+}
+
 </style>

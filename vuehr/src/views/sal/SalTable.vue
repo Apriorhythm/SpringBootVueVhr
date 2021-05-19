@@ -1,6 +1,6 @@
 <template>
   <div>
-      Test1
+      工资表管理
   </div>
 </template>
 

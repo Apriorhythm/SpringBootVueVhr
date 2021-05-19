@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import store from './store'
+import {initMenu} from './utils/menus'
+import 'font-awesome/css/font-awesome.css'
+
 
 import {postRequest} from './utils/api'
 import {postKeyValueRequest} from './utils/api'
@@ -28,10 +32,24 @@ Vue.prototype.getRequest = getRequest;
 /* #########* 插件 *######### */
 
 
-
 Vue.config.productionTip = false
+
+
+// 路由导航守卫(类似于后台的拦截器)
+router.beforeEach((to , from, next) => {
+  if (to.path == '/') {
+    next();
+  } else {
+    initMenu(router, store);
+    next();
+  }
+  
+
+});
+
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')
